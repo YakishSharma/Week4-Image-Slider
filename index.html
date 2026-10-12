@@ -1,52 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Image Slider Library</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="slider.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Image Slider Library</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="slider.js" defer></script>
 </head>
 <body>
-  <header class="page-header">
-    <h1>Responsive Image Slider</h1>
-    <p>Explore beautiful landscapes with a simple image slider.</p>
-  </header>
 
-  <main class="container">
-    <section class="slider" aria-label="Landscape image slider">
-      <div class="viewport">
-        <div class="track" id="slideTrack"></div>
+    <header class="header">
+        <h1>Responsive Image Slider Library</h1>
+        <p>Explore beautiful places around the world</p>
+    </header>
 
-        <button
-          class="arrow previous"
-          id="previousButton"
-          type="button"
-          aria-label="Previous image"
-        >&#10094;</button>
+    <main class="container">
+        <div class="slider">
+            <div class="image-container">
+                <img id="sliderImage" src="mountain.jpg"
+                     alt="Beautiful mountain landscape">
 
-        <button
-          class="arrow next"
-          id="nextButton"
-          type="button"
-          aria-label="Next image"
-        >&#10095;</button>
-      </div>
+                <div class="caption" id="caption">
+                    Beautiful Mountains
+                </div>
 
-      <div
-        class="dots"
-        id="slideDots"
-        aria-label="Choose a slide"
-      ></div>
+                <button id="prevBtn" class="nav-button prev"
+                        aria-label="Previous image">&#10094;</button>
 
-      <p class="status" id="slideStatus" aria-live="polite">
-        Loading images...
-      </p>
-    </section>
-  </main>
+                <button id="nextBtn" class="nav-button next"
+                        aria-label="Next image">&#10095;</button>
+            </div>
 
-  <footer>
-    <p>Week 4 Assignment | Image Slider Library</p>
-  </footer>
+            <div class="controls">
+                <div id="dots" class="dots"></div>
+                <p id="slideStatus" aria-live="polite">Slide 1 of 4</p>
+            </div>
+        </div>
+
+        <p class="instructions">
+            Click the arrows or dots to change images.
+            You can also use the left and right arrow keys.
+        </p>
+    </main>
+
+    <footer>
+        <p>Created by Yakish Sharma | CSE 230</p>
+    </footer>
+
 </body>
 </html>
