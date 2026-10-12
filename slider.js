@@ -1,12 +1,6 @@
-class ImageSlider {
-  constructor() {
-    this.track = document.querySelector("#slideTrack");
-    this.dotsContainer = document.querySelector("#slideDots");
-    this.previousButton = document.querySelector("#previousButton");
-    this.nextButton = document.querySelector("#nextButton");
-    this.status = document.querySelector("#slideStatus");
 
-   
+"use strict";
+
 const images = [
     {
         src: "mountain.jpg",
@@ -21,7 +15,7 @@ const images = [
     {
         src: "beach.jpg",
         caption: "Sunny Beach",
-        alt: "Sunny beach by the ocean"
+        alt: "Sunny beach beside the ocean"
     },
     {
         src: "lake.jpg",
@@ -30,120 +24,83 @@ const images = [
     }
 ];
 
+const sliderImage = document.getElementById("sliderImage");
+const caption = document.getElementById("caption");
+const slideStatus = document.getElementById("slideStatus");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const dotsContainer = document.getElementById("dots");
 
-    this.currentIndex = 0;
+let currentIndex = 0;
 
-    this.createSlides();
-    this.createDots();
-    this.addEventListeners();
-    this.updateSlider();
-  }
+// Create navigation dots.
+images.forEach((image, index) => {
+    const dot = document.createElement("button");
 
-  createSlides() {
-    this.images.forEach((image, index) => {
-      const slide = document.createElement("div");
-      slide.className = "slide";
+    dot.type = "button";
+    dot.className = "dot";
+    dot.setAttribute("aria-label", "Show image " + (index + 1));
 
-      const picture = document.createElement("img");
-      picture.src = image.src;
-      picture.alt = image.caption;
-      picture.loading = index === 0 ? "eager" : "lazy";
-
-      picture.addEventListener("error", () => {
-        this.status.textContent =
-          `Could not load ${image.src}. Check the image filename.`;
-      });
-
-      const caption = document.createElement("div");
-      caption.className = "slide-caption";
-      caption.textContent = image.caption;
-
-      slide.appendChild(picture);
-      slide.appendChild(caption);
-      this.track.appendChild(slide);
-    });
-  }
-
-  createDots() {
-    this.images.forEach((image, index) => {
-      const dot = document.createElement("button");
-
-      dot.className = "dot";
-      dot.type = "button";
-      dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
-
-      dot.addEventListener("click", () => {
-        this.currentIndex = index;
-        this.updateSlider();
-      });
-
-      this.dotsContainer.appendChild(dot);
-    });
-  }
-
-  addEventListeners() {
-    this.nextButton.addEventListener("click", () => {
-      this.next();
+    dot.addEventListener("click", () => {
+        showSlide(index);
     });
 
-    this.previousButton.addEventListener("click", () => {
-      this.previous();
+    dotsContainer.appendChild(dot);
+});
+
+// Display the selected image.
+function showSlide(index) {
+    currentIndex = (index + images.length) % images.length;
+
+    const selectedImage = images[currentIndex];
+
+    sliderImage.onerror = () => {
+        caption.textContent = "Could not load: " + selectedImage.src;
+        console.error("Image not found:", selectedImage.src);
+    };
+
+    sliderImage.onload = () => {
+        caption.textContent = selectedImage.caption;
+    };
+
+    sliderImage.src = selectedImage.src;
+    sliderImage.alt = selectedImage.alt;
+
+    slideStatus.textContent =
+        "Slide " + (currentIndex + 1) + " of " + images.length;
+
+    const dots = dotsContainer.querySelectorAll(".dot");
+
+    dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === currentIndex);
+
+        if (dotIndex === currentIndex) {
+            dot.setAttribute("aria-current", "true");
+        } else {
+            dot.removeAttribute("aria-current");
+        }
     });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-        this.next();
-      } else if (event.key === "ArrowLeft") {
-        this.previous();
-      }
-    });
-  }
-
-  next() {
-    this.currentIndex =
-      (this.currentIndex + 1) % this.images.length;
-
-    this.updateSlider();
-  }
-
-  previous() {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.images.length) %
-      this.images.length;
-
-    this.updateSlider();
-  }
-
-  updateSlider() {
-    this.track.style.transform =
-      `translateX(-${this.currentIndex * 100}%)`;
-
-    const dots = this.dotsContainer.querySelectorAll(".dot");
-
-    dots.forEach((dot, index) => {
-      dot.classList.toggle("active", index === this.currentIndex);
-      dot.setAttribute(
-        "aria-current",
-        index === this.currentIndex ? "true" : "false"
-      );
-    });
-
-    this.status.textContent =
-      `Slide ${this.currentIndex + 1} of ${this.images.length}`;
-  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  try {
-    new ImageSlider();
-  } catch (error) {
-    console.error("Image Slider error:", error);
-
-    const status = document.querySelector("#slideStatus");
-
-    if (status) {
-      status.textContent =
-        "Slider error. Open the browser Console to check the problem.";
-    }
-  }
+// Next and previous buttons.
+nextBtn.addEventListener("click", () => {
+    showSlide(currentIndex + 1);
 });
+
+prevBtn.addEventListener("click", () => {
+    showSlide(currentIndex - 1);
+});
+
+// Keyboard navigation.
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") {
+        showSlide(currentIndex + 1);
+    }
+
+    if (event.key === "ArrowLeft") {
+        showSlide(currentIndex - 1);
+    }
+});
+
+// Display the first image.
+showSlide(0);
