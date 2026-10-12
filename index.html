@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Image Slider Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="slider.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Responsive Image Slider</h1>
+    <p>Explore beautiful landscapes with a simple image slider.</p>
+  </header>
+
+  <main class="container">
+    <section class="slider" aria-label="Landscape image slider">
+      <div class="viewport">
+        <div class="track" id="slideTrack"></div>
+
+        <button
+          class="arrow previous"
+          id="previousButton"
+          type="button"
+          aria-label="Previous image"
+        >&#10094;</button>
+
+        <button
+          class="arrow next"
+          id="nextButton"
+          type="button"
+          aria-label="Next image"
+        >&#10095;</button>
+      </div>
+
+      <div
+        class="dots"
+        id="slideDots"
+        aria-label="Choose a slide"
+      ></div>
+
+      <p class="status" id="slideStatus" aria-live="polite">
+        Loading images...
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Week 4 Assignment | Image Slider Library</p>
+  </footer>
+</body>
+</html>
