@@ -6,24 +6,30 @@ class ImageSlider {
     this.nextButton = document.querySelector("#nextButton");
     this.status = document.querySelector("#slideStatus");
 
-    this.images = [
-      {
-        src: "images/mountain.jpg",
-        caption: "Beautiful Mountains"
-      },
-      {
-        src: "images/forest.jpg",
-        caption: "Peaceful Green Forest"
-      },
-      {
-        src: "images/beach.jpg",
-        caption: "Sunny Beach"
-      },
-      {
-        src: "images/lake.jpg",
-        caption: "Calm Lake"
-      }
-    ];
+   
+const images = [
+    {
+        src: "mountain.jpg",
+        caption: "Beautiful Mountains",
+        alt: "Beautiful mountain landscape"
+    },
+    {
+        src: "forest.jpg",
+        caption: "Peaceful Green Forest",
+        alt: "Green forest landscape"
+    },
+    {
+        src: "beach.jpg",
+        caption: "Sunny Beach",
+        alt: "Sunny beach by the ocean"
+    },
+    {
+        src: "lake.jpg",
+        caption: "Calm Lake",
+        alt: "Peaceful lake landscape"
+    }
+];
+
 
     this.currentIndex = 0;
 
